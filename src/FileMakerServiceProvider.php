@@ -20,7 +20,6 @@ class FileMakerServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('rojtjo/filemaker-laravel', 'filemaker-laravel', __DIR__);
 		$this->registerServers();
 		$this->setDefaultServer();
 	}
