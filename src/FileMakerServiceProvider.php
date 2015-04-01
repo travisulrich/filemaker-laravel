@@ -20,6 +20,10 @@ class FileMakerServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
+		$config = realpath(__DIR__.'/config/config.php');
+		$this->publishes([
+    			$config => config_path('filemaker.php'),
+		]);
 		$this->registerServers();
 		$this->setDefaultServer();
 	}
@@ -29,7 +33,7 @@ class FileMakerServiceProvider extends ServiceProvider {
 	 */
 	private function registerServers()
 	{
-		$connections = $this->app['config']->get('filemaker-laravel::connections', array());
+		$connections = $this->app['config']->get('filemaker.connections', array());
 		$fm = $this->app['filemaker'];
 
 		foreach($connections as $name => $connection) {
@@ -48,7 +52,7 @@ class FileMakerServiceProvider extends ServiceProvider {
 	 */
 	private function setDefaultServer()
 	{
-		$name = $this->app['config']->get('filemaker-laravel::default');
+		$name = $this->app['config']->get('filemaker.default');
 		$this->app['filemaker']->setDefaultServer($name);
 	}
 
